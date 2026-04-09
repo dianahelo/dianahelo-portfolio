@@ -378,13 +378,69 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 5%; }
+
+    .hero { padding: 0 5% 8%; }
+
+    .hero-meta {
+      flex-wrap: wrap;
+      gap: 1.25rem 2rem;
+    }
+
+    .hero-title {
+      font-size: clamp(48px, 12vw, 120px);
+    }
+
+    .intro {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 3rem 5%;
+    }
+
+    .section {
+      padding: 3rem 5%;
+    }
+
+    .section-body {
+      margin-left: 0;
+    }
+
+    .section-num {
+      font-size: clamp(40px, 12vw, 60px);
+    }
+
+    .img-grid-2,
+    .img-grid-3 {
+      grid-template-columns: 1fr;
+      padding: 0 5%;
+    }
+
+    .img-tall {
+      grid-template-columns: 1fr;
+      padding: 0 5%;
+    }
+
+    .deliverables { padding: 3rem 5%; }
+    .outcome { padding: 3rem 5%; }
+
+    .footer-nav {
+      padding: 2.5rem 5%;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .next-project { text-align: left; }
+  }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="portfolio-hero.html" class="nav-back">← Back to work</a>
+  <a href="index.html" class="nav-back">← Back to work</a>
   <span class="nav-index">UI/UX · Branding</span>
 </nav>
 
@@ -443,12 +499,12 @@
 
 <!-- IMAGE GRID — early explorations / moodboard -->
 <div class="img-grid-2 reveal">
-  <img src="2sunrise-exploration-1.jpg" alt="Brand exploration"
+  <img src="2sunrise-exploration-1.webp" alt="Brand exploration"
     class="img-placeholder"
-    onerror="this.classList.add('img-placeholder');this.alt='2sunrise-exploration-1.jpg'">
-  <img src="2sunrise-exploration-2.jpg" alt="Brand exploration"
+    onerror="this.classList.add('img-placeholder');this.alt='2sunrise-exploration-1.webp'">
+  <img src="2sunrise-exploration-2.webp" alt="Brand exploration"
     class="img-placeholder"
-    onerror="this.classList.add('img-placeholder');this.alt='2sunrise-exploration-2.jpg'">
+    onerror="this.classList.add('img-placeholder');this.alt='2sunrise-exploration-2.webp'">
 </div>
 
 <!-- SECTION 02 — PROCESS -->
@@ -465,31 +521,31 @@
 
 <!-- LOGO LOCKUPS — 3 grid -->
 <div class="img-grid-3 reveal">
-  <img src="2sunrise-wordmark.jpg" alt="Wordmark"
+  <img src="2sunrise-wordmark.webp" alt="Wordmark"
     class="img-placeholder"
-    onerror="this.classList.add('img-placeholder');this.alt='Wordmark → 2sunrise-wordmark.jpg'">
-  <img src="2sunrise-submark.jpg" alt="Submark"
+    onerror="this.classList.add('img-placeholder');this.alt='Wordmark → 2sunrise-wordmark.webp'">
+  <img src="2sunrise-submark.webp" alt="Submark"
     class="img-placeholder"
-    onerror="this.classList.add('img-placeholder');this.alt='Submark → 2sunrise-submark.jpg'">
-  <img src="2sunrise-favicon.jpg" alt="Favicon"
+    onerror="this.classList.add('img-placeholder');this.alt='Submark → 2sunrise-submark.webp'">
+  <img src="2sunrise-favicon.webp" alt="Favicon"
     class="img-placeholder"
-    onerror="this.classList.add('img-placeholder');this.alt='Favicon → 2sunrise-favicon.jpg'">
+    onerror="this.classList.add('img-placeholder');this.alt='Favicon → 2sunrise-favicon.webp'">
 </div>
 
 <!-- COLOR + TYPE — 2 grid -->
 <div class="img-grid-2 reveal">
-  <img src="2sunrise-colors.jpg" alt="Color system"
+  <img src="2sunrise-colors.webp" alt="Color system"
     class="img-placeholder"
-    onerror="this.classList.add('img-placeholder');this.alt='Color system → 2sunrise-colors.jpg'">
-  <img src="2sunrise-type.jpg" alt="Type system"
+    onerror="this.classList.add('img-placeholder');this.alt='Color system → 2sunrise-colors.webp'">
+  <img src="2sunrise-type.webp" alt="Type system"
     class="img-placeholder"
-    onerror="this.classList.add('img-placeholder');this.alt='Type system → 2sunrise-type.jpg'">
+    onerror="this.classList.add('img-placeholder');this.alt='Type system → 2sunrise-type.webp'">
 </div>
 
 <!-- WEBSITE MOCKUPS — full width -->
-<img class="img-full img-placeholder reveal" src="2sunrise-website-desktop.jpg"
+<img class="img-full img-placeholder reveal" src="2sunrise-website-desktop.webp"
   alt="Website desktop"
-  onerror="this.style.display='flex';this.innerHTML='Website mockup → 2sunrise-website-desktop.jpg'">
+  onerror="this.style.display='flex';this.innerHTML='Website mockup → 2sunrise-website-desktop.webp'">
 
 <!-- DELIVERABLES -->
 <div class="deliverables reveal">
@@ -515,7 +571,7 @@
 
 <!-- FOOTER NAV -->
 <div class="footer-nav">
-  <a href="portfolio-hero.html">← All projects</a>
+  <a href="index.html">← All projects</a>
   <div class="next-project">
     <span class="next-label">Next project</span>
     <a href="biointellectus.html" class="next-name">Biointellectus →</a>

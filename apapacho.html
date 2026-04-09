@@ -171,11 +171,6 @@
 
   .award-item:last-child { border-right: none; }
 
-  .award-icon {
-    font-size: 14px;
-    margin-bottom: 2px;
-  }
-
   .award-title {
     font-size: 10px;
     font-weight: 500;
@@ -575,13 +570,101 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 5%; }
+
+    .hero { padding: 0 5% 5%; }
+
+    .hero-meta {
+      flex-wrap: wrap;
+      gap: 1.25rem 2rem;
+    }
+
+    .hero-title {
+      font-size: clamp(48px, 12vw, 120px);
+    }
+
+    .awards-strip {
+      flex-direction: column;
+    }
+
+    .award-item {
+      min-width: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--grey-light);
+    }
+
+    .award-item:last-child { border-bottom: none; }
+
+    .intro {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 3rem 5%;
+    }
+
+    .section {
+      padding: 3rem 5%;
+    }
+
+    .section-body {
+      margin-left: 0;
+    }
+
+    .section-num {
+      font-size: clamp(40px, 12vw, 60px);
+    }
+
+    .img-grid-2,
+    .img-grid-3 {
+      grid-template-columns: 1fr;
+      padding: 0 5%;
+    }
+
+    .img-editorial {
+      grid-template-columns: 1fr;
+      padding: 0 5%;
+    }
+
+    .pattern-split {
+      grid-template-columns: 1fr;
+    }
+
+    .pattern-split-text {
+      padding: 2.5rem 5%;
+      border-left: none;
+      border-top: 1px solid var(--grey-light);
+    }
+
+    .book-section {
+      grid-template-columns: 1fr;
+    }
+
+    .book-text {
+      padding: 2.5rem 5%;
+      border-right: none;
+      border-bottom: 1px solid var(--grey-light);
+    }
+
+    .deliverables { padding: 3rem 5%; }
+    .outcome { padding: 4rem 5%; }
+
+    .footer-nav {
+      padding: 2.5rem 5%;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .next-project { text-align: left; }
+  }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="portfolio-hero.html" class="nav-back">← Back to work</a>
+  <a href="index.html" class="nav-back">← Back to work</a>
   <span class="nav-index">Textile Design · Visual Identity</span>
 </nav>
 
@@ -622,22 +705,18 @@
   <!-- AWARDS STRIP -->
   <div class="awards-strip">
     <div class="award-item featured">
-      <div class="award-icon">⭐</div>
       <div class="award-title">Honorable Mention</div>
       <div class="award-event">Conclusiones 24'</div>
     </div>
     <div class="award-item featured">
-      <div class="award-icon">⭐</div>
       <div class="award-title">Entrepreneurship Award</div>
       <div class="award-event">Conclusiones 24'</div>
     </div>
     <div class="award-item featured">
-      <div class="award-icon">⭐</div>
       <div class="award-title">People's Choice Award</div>
       <div class="award-event">Conclusiones 24'</div>
     </div>
     <div class="award-item milan">
-      <div class="award-icon">🇮🇹</div>
       <div class="award-title">Project Presented</div>
       <div class="award-event">Milan Design Week 25'</div>
     </div>
@@ -653,7 +732,7 @@
 </div>
 
 <!-- HERO IMAGE -->
-<img class="img-full reveal" src="apapacho_screen.png" alt="Apapacho hero"
+<img class="img-full reveal" src="apapacho_screen.webp" alt="Apapacho hero"
   style="aspect-ratio:16/9;"
   onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.15em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 
@@ -669,7 +748,7 @@
   </div>
 </div>
 
-<!-- EDITORIAL 3 IMAGES --
+<!-- EDITORIAL 3 IMAGES
 <div class="img-editorial reveal">
   <img src="apapacho-product-1.webp" alt="Apapacho product"
     onerror="this.style.cssText='width:100%;aspect-ratio:3/4;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
@@ -678,7 +757,7 @@
   <img src="apapacho-product-3.webp" alt="Apapacho product"
     onerror="this.style.cssText='width:100%;aspect-ratio:3/4;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 </div>
->
+-->
 
 <!-- SECTION 02 — PROCESS -->
 <div class="section reveal">
@@ -694,7 +773,7 @@
 
 <!-- PATTERN STORY SPLIT -->
 <div class="pattern-split reveal">
-  <img src="apapacho-pattern.jpg" alt="Pattern detail"
+  <img src="apapacho-pattern.webp" alt="Pattern detail"
     onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
   <div class="pattern-split-text">
     <div class="pattern-label">Pattern Narrative</div>
@@ -724,9 +803,9 @@
 
 <!-- PRODUCT GRID -->
 <div class="img-grid-2 reveal">
-  <img src="apapachomilan_screen.JPG" alt="Apapacho textile"
+  <img src="apapachomilan_screen.webp" alt="Apapacho textile"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
-  <img src="apapacho-product-5.jpg" alt="Apapacho textile"
+  <img src="apapacho-product-5.webp" alt="Apapacho textile"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 </div>
 
@@ -737,17 +816,17 @@
     <div class="book-text-title">The full story,<br>documented.</div>
     <div class="book-text-body">From the research that uncovered the emotional need, to the pattern development that told the story — the process book captures every step. The folding guide documents how each textile transforms, giving users the language to explore every configuration of the collection.</div>
   </div>
-  <img src="apapacho-graphic-1.jpg" alt="Process book mockup"
+  <img src="apapacho-graphic-1.webp" alt="Process book mockup"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 </div>
 
 <!-- GRAPHIC DESIGN GRID -->
 <div class="img-grid-3 reveal">
-  <img src="apapacho-book.jpg" alt="Visual identity"
+  <img src="apapacho-book.webp" alt="Visual identity"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
-  <img src="apapacho-graphic-2.jpg" alt="Visual identity"
+  <img src="apapacho-graphic-2.webp" alt="Visual identity"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
-  <img src="apapacho-libros.jpg" alt="Milan Design Week"
+  <img src="apapacho-libros.webp" alt="Milan Design Week"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 </div>
 
@@ -778,7 +857,7 @@
 
 <!-- FOOTER NAV -->
 <div class="footer-nav">
-  <a href="portfolio-hero.html">← All projects</a>
+  <a href="index.html">← All projects</a>
   <div class="next-project">
     <span class="next-label">Next project</span>
     <a href="2sunrise.html" class="next-name">2sunrise →</a>

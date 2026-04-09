@@ -31,6 +31,7 @@
     background: var(--black);
     position: relative;
     overflow: hidden;
+    container-type: inline-size;
   }
 
   /* NAV */
@@ -45,7 +46,7 @@
 
   nav a {
     font-family: 'Barlow', sans-serif;
-    font-size: clamp(8px, 1.1vw, 13px);
+    font-size: clamp(8px, 1.1cqi, 13px);
     font-weight: 500;
     letter-spacing: 0.08em;
     color: var(--cream);
@@ -53,7 +54,10 @@
     text-transform: uppercase;
     opacity: 0;
     animation: fadeIn 0.6s forwards;
+    transition: opacity 0.2s;
   }
+
+  nav a:hover { opacity: 0.6 !important; }
 
   nav a:nth-child(1) { animation-delay: 0.2s; }
   nav a:nth-child(2) { animation-delay: 0.3s; }
@@ -72,7 +76,7 @@
   .headline {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: clamp(32px, 14.5vw, 200px);
+    font-size: clamp(32px, 16cqi, 185px);
     color: var(--cream);
     text-transform: uppercase;
     letter-spacing: -0.01em;
@@ -84,7 +88,7 @@
   .headline-row2 {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: clamp(32px, 14.5vw, 200px);
+    font-size: clamp(32px, 16cqi, 185px);
     color: var(--cream);
     text-transform: uppercase;
     letter-spacing: -0.01em;
@@ -94,12 +98,12 @@
   /* IMAGE INTERRUPT */
   .img-interrupt {
     display: inline-block;
-    width: clamp(100px, 20vw, 120px);
-    height: clamp(60px, 20vw, 130px);
+    width: clamp(60px, 12cqi, 120px);
+    height: clamp(40px, 11cqi, 115px);
     background: #2a2a2a;
     overflow: hidden;
     position: relative;
-    vertical-align: -150px;
+    vertical-align: middle;
     margin: 0 0.06em;
     flex-shrink: 0;
     opacity: 0;
@@ -107,13 +111,13 @@
   }
 
   .img-interrupt img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(100%) contrast(1.2);
-  position: absolute;
-  top: 0; left: 0;
-}
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.2);
+    position: absolute;
+    top: 0; left: 0;
+  }
 
   .img-interrupt .label {
     position: absolute;
@@ -121,7 +125,7 @@
     background: var(--black);
     color: var(--cream);
     font-family: 'Barlow', sans-serif;
-    font-size: clamp(6px, 0.9vw, 11px);
+    font-size: clamp(6px, 0.9cqi, 11px);
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -137,16 +141,16 @@
 
   /* BODY COPY */
   .body-copy {
-  position: absolute;
-  top: 62%;
-  left: 4%;
-  width: clamp(180px, 35%, 400px);
-  text-align: left;
-}
+    position: absolute;
+    top: 68%;
+    left: 4%;
+    width: clamp(180px, 35%, 400px);
+    text-align: left;
+  }
 
   .body-copy p {
     font-family: 'Barlow', sans-serif;
-    font-size: clamp(7px, 0.95vw, 11px);
+    font-size: clamp(7px, 0.95cqi, 11px);
     font-weight: 500;
     letter-spacing: 0.06em;
     line-height: 1.65;
@@ -162,7 +166,7 @@
     bottom: 7%;
     left: 4%;
     font-family: 'Barlow', sans-serif;
-    font-size: clamp(7px, 0.95vw, 11px);
+    font-size: clamp(7px, 0.95cqi, 11px);
     color: var(--cream);
     opacity: 0;
     animation: fadeIn 0.8s 1.1s forwards;
@@ -203,7 +207,7 @@
     bottom: 0; left: 0; right: 0;
     background: linear-gradient(transparent, rgba(0,0,0,0.8));
     color: var(--cream);
-    font-size: clamp(6px, 0.7vw, 9px);
+    font-size: clamp(6px, 0.7cqi, 9px);
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -232,7 +236,7 @@
   .card-cta .cta-title {
     font-family: 'Barlow', sans-serif;
     font-weight: 700;
-    font-size: clamp(7px, 0.95vw, 11px);
+    font-size: clamp(7px, 0.95cqi, 11px);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--black);
@@ -241,7 +245,7 @@
 
   .card-cta .cta-sub {
     font-family: 'Barlow', sans-serif;
-    font-size: clamp(6px, 0.7vw, 8px);
+    font-size: clamp(6px, 0.7cqi, 8px);
     color: rgba(0,0,0,0.6);
     margin-top: 4px;
     letter-spacing: 0.05em;
@@ -253,8 +257,6 @@
   .c3 { background: #181818; }
   .c4 { background: #1e1e1e; }
   .c5 { background: #202020; }
-  .c6 { background: #191919; }
-  .c7 { background: #1d1d1d; }
 
   /* ANIMATIONS */
   @keyframes fadeIn {
@@ -265,6 +267,161 @@
   @keyframes slideUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes waveFloat {
+    0% { opacity: 1; transform: translate(-50%, 0) scale(1) rotate(0deg); }
+    15% { transform: translate(-50%, -15px) scale(1) rotate(-20deg); }
+    30% { transform: translate(-50%, -30px) scale(1) rotate(20deg); }
+    45% { transform: translate(-50%, -45px) scale(1) rotate(-20deg); }
+    60% { transform: translate(-50%, -60px) scale(1) rotate(15deg); }
+    75% { opacity: 1; transform: translate(-50%, -75px) scale(1) rotate(-10deg); }
+    90% { opacity: 0.5; transform: translate(-50%, -90px) scale(0.95) rotate(0deg); }
+    100% { opacity: 0; transform: translate(-50%, -105px) scale(0.9) rotate(0deg); }
+  }
+
+  .img-interrupt.clicked {
+    overflow: visible;
+  }
+
+  .img-interrupt img {
+    transition: filter 0.3s ease-in, filter 0.6s ease-out;
+  }
+
+  .img-interrupt.clicked img {
+    filter: grayscale(0%) contrast(1);
+    transition: filter 0.3s ease-in;
+  }
+
+  .img-interrupt .wave-emoji {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 40px;
+    line-height: 1;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 5;
+  }
+
+  .img-interrupt .wave-emoji.go {
+    animation: waveFloat 1.8s ease-out forwards;
+  }
+
+  @keyframes spinBounce {
+    0% { transform: rotate(0deg) scale(1); }
+    30% { transform: rotate(12deg) scale(0.9); }
+    60% { transform: rotate(-3deg) scale(1.05); }
+    80% { transform: rotate(1deg) scale(0.98); }
+    100% { transform: rotate(0deg) scale(1); }
+  }
+
+  .scroll-strip.do-spin .project-card:nth-child(1) { animation: spinBounce 0.7s cubic-bezier(0.34,1.56,0.64,1) 0s both; }
+  .scroll-strip.do-spin .project-card:nth-child(2) { animation: spinBounce 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.06s both; }
+  .scroll-strip.do-spin .project-card:nth-child(3) { animation: spinBounce 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.12s both; }
+  .scroll-strip.do-spin .project-card:nth-child(4) { animation: spinBounce 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.18s both; }
+  .scroll-strip.do-spin .project-card:nth-child(5) { animation: spinBounce 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.24s both; }
+  .scroll-strip.do-spin .card-cta { animation: spinBounce 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.30s both; }
+
+  /* ABOUT OVERLAY */
+  .about-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--black);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8% 8%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .about-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .about-close {
+    position: absolute;
+    top: 3.5%;
+    right: 4%;
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(8px, 1.1cqi, 13px);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+    text-transform: uppercase;
+    cursor: pointer;
+    background: none;
+    border: none;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+
+  .about-close:hover { opacity: 1; }
+
+  .about-label {
+    font-size: clamp(8px, 1cqi, 11px);
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(240,237,230,0.4);
+    margin-bottom: 2rem;
+  }
+
+  .about-heading {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(28px, 6cqi, 72px);
+    color: var(--cream);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+    margin-bottom: 2rem;
+  }
+
+  .about-heading span {
+    color: #ff4e00;
+  }
+
+  .about-body {
+    max-width: 600px;
+    font-size: clamp(11px, 1.3cqi, 16px);
+    font-weight: 400;
+    line-height: 1.7;
+    color: rgba(240,237,230,0.7);
+    letter-spacing: 0.01em;
+  }
+
+  .about-body p + p {
+    margin-top: 1em;
+  }
+
+  .about-contact {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .about-contact a {
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(9px, 1cqi, 12px);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(240,237,230,0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+
+  .about-contact a:hover {
+    border-color: var(--cream);
   }
 
   .row1-animate {
@@ -280,9 +437,75 @@
   /* CURSOR */
   .viewport { cursor: crosshair; }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
+  html, body {
+    align-items: flex-start;
+  }
+
+  .viewport {
+    width: 100vw;
+    aspect-ratio: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    border-radius: 0;
+  }
+
+  .hero {
+    top: 8%;
+    padding: 0 5%;
+  }
+
+  .headline,
+  .headline-row2 {
+    font-size: clamp(32px, 12vw, 80px);
+  }
+
+  .img-interrupt {
+    width: clamp(40px, 12vw, 70px);
+    height: clamp(30px, 10vw, 50px);
+  }
+
   .body-copy {
     display: none;
+  }
+
+  nav {
+    padding: 5% 5%;
+  }
+
+  nav a {
+    font-size: clamp(9px, 2.5vw, 13px);
+  }
+
+  .scroll-strip {
+    height: 18%;
+    padding: 0 3% 4%;
+    gap: 2%;
+  }
+
+  .project-card {
+    flex: 0 0 calc(16% - 1%);
+  }
+
+  .card-cta {
+    flex: 0 0 calc(20% - 1%);
+  }
+
+  .copyright {
+    bottom: 5%;
+    left: 5%;
+  }
+
+  .about-overlay {
+    padding: 15% 6%;
+  }
+
+  .about-heading {
+    font-size: clamp(28px, 8vw, 48px);
+  }
+
+  .about-body {
+    font-size: clamp(12px, 3.2vw, 16px);
   }
 }
 
@@ -294,18 +517,19 @@
 
   <!-- NAV -->
   <nav>
-    <a href="#">Work</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+    <a href="#" data-target="work">Work</a>
+    <a href="#" data-target="about">About</a>
+    <a href="mailto:imdianahelo@gmail.com">Contact</a>
   </nav>
 
   <!-- HERO -->
 <div class="hero">
   <div class="headline row1-animate">
     DIANA<span class="paren">(</span>
-    <span class="img-interrupt">
-      <img src="dianamountain.jpg" alt="">
-      <div class="label">(that's her) ↑</div>
+    <span class="img-interrupt" id="diana-pic">
+      <img src="dianamountain.webp" alt="">
+      <div class="label">(that's me!) ↑</div>
+      <span class="wave-emoji" id="wave">👋</span>
     </span>
     <span class="paren">)</span>HELO
   </div>
@@ -322,28 +546,84 @@
   </div>
 
   <!-- COPYRIGHT -->
-  <div class="copyright">©'25</div>
+  <div class="copyright">©'26</div>
 
   <!-- PROJECT STRIP -->
-  <div class="scroll-strip">
-    <div class="project-card c1" style="background-image: url('2SUNRISE_PORTFOLIO.png'); background-size: cover; background-position: center;"onclick="window.location='2sunrise.html'">
+  <div class="scroll-strip" id="work">
+    <div class="project-card c1" style="background-image: url('2SUNRISE_PORTFOLIO.webp'); background-size: cover; background-position: center;"onclick="window.location='2sunrise.html'">
      <div class="card-label">2sunrise</div></div>
-    <div class="project-card c2" style="background-image: url('biointellectus_screen.png'); background-size: cover; background-position: center;"onclick="window.location='biointellectus.html'">
+    <div class="project-card c2" style="background-image: url('biointellectus_screen.webp'); background-size: cover; background-position: center;"onclick="window.location='biointellectus.html'">
      <div class="card-label">biointellectus</div></div>
-    <div class="project-card c3" style="background-image: url('looqs_screen.png'); background-size: cover; background-position: center;"onclick="window.location='looqs.html'">
-     <div class="card-label">looqs</div></div>    
-    <div class="project-card c4" style="background-image: url('connexus_screen.jpg'); background-size: cover; background-position: top;"onclick="window.location='connexus.html'">
-     <div class="card-label">connexus</div></div> 
-    <div class="project-card c5" style="background-image: url('apapachomilan_screen.JPG'); background-size: cover; background-position: top;">
-     <div class="card-label">apapacho</div></div> 
+    <div class="project-card c3" style="background-image: url('looqs_screen.webp'); background-size: cover; background-position: center;"onclick="window.location='looqs.html'">
+     <div class="card-label">looqs</div></div>
+    <div class="project-card c4" style="background-image: url('connexus_screen.webp'); background-size: cover; background-position: top;"onclick="window.location='connexus.html'">
+     <div class="card-label">connexus</div></div>
+    <div class="project-card c5" style="background-image: url('apapachomilan_screen.webp'); background-size: cover; background-position: top;"onclick="window.location='apapacho.html'">
+     <div class="card-label">apapacho</div></div>
 
-    <div class="card-cta">
+    <div class="card-cta" onclick="window.location='mailto:imdianahelo@gmail.com'">
       <div class="cta-title">Let's<br>work →</div>
       <div class="cta-sub">Available now</div>
     </div>
   </div>
 
+  <!-- ABOUT OVERLAY -->
+  <div class="about-overlay" id="about-overlay">
+    <button class="about-close" id="about-close">Close ×</button>
+    <div class="about-label">About</div>
+    <div class="about-heading">Diana <span>Helo</span></div>
+    <div class="about-body">
+      <p>Designer and creative developer based in Mexico. I build brands, identities, and digital products from concept to final form — with a focus on making things feel as intentional as they look.</p>
+      <p>My work spans branding, UI/UX, textile design, and product identity. I've had projects shown at Milan Design Week and have built full visual systems for startups across biotech, fashion-tech, and sustainability.</p>
+    </div>
+    <div class="about-contact">
+      <a href="mailto:imdianahelo@gmail.com">imdianahelo@gmail.com</a>
+    </div>
+  </div>
+
 </div>
+
+<script>
+  const strip = document.getElementById('work');
+  const aboutOverlay = document.getElementById('about-overlay');
+  const aboutClose = document.getElementById('about-close');
+
+  document.querySelectorAll('nav a[data-target]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = link.dataset.target;
+
+      if (target === 'work') {
+        strip.classList.remove('do-spin');
+        void strip.offsetWidth;
+        strip.classList.add('do-spin');
+        setTimeout(() => strip.classList.remove('do-spin'), 1200);
+      }
+
+      if (target === 'about') {
+        aboutOverlay.classList.add('open');
+      }
+    });
+  });
+
+  aboutClose.addEventListener('click', () => {
+    aboutOverlay.classList.remove('open');
+  });
+
+  const dianaPic = document.getElementById('diana-pic');
+  const wave = document.getElementById('wave');
+  dianaPic.addEventListener('click', e => {
+    e.stopPropagation();
+    dianaPic.classList.add('clicked');
+    wave.classList.remove('go');
+    void wave.offsetWidth;
+    wave.classList.add('go');
+    setTimeout(() => {
+      dianaPic.classList.remove('clicked');
+      wave.classList.remove('go');
+    }, 2000);
+  });
+</script>
 
 </body>
 </html>

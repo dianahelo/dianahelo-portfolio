@@ -420,6 +420,7 @@
     border-bottom: 1px solid var(--grey-light);
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 3rem;
     overflow-x: auto;
   }
@@ -602,13 +603,95 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 5%; }
+
+    .hero { padding: 0 5% 8%; }
+
+    .hero-meta {
+      flex-wrap: wrap;
+      gap: 1.25rem 2rem;
+    }
+
+    .hero-title {
+      font-size: clamp(48px, 12vw, 120px);
+    }
+
+    .hero-counter {
+      position: static;
+      text-align: left;
+      margin-top: 1.5rem;
+    }
+
+    .intro {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 3rem 5%;
+    }
+
+    .section {
+      padding: 3rem 5%;
+    }
+
+    .section-body {
+      margin-left: 0;
+    }
+
+    .section-num {
+      font-size: clamp(40px, 12vw, 60px);
+    }
+
+    .img-grid-2,
+    .img-grid-3 {
+      grid-template-columns: 1fr;
+      padding: 0 5%;
+    }
+
+    .img-asymmetric {
+      grid-template-columns: 1fr;
+      padding: 0 5%;
+    }
+
+    .img-asymmetric img:first-child,
+    .img-asymmetric img:last-child {
+      aspect-ratio: 4/3;
+    }
+
+    .book-section {
+      grid-template-columns: 1fr;
+    }
+
+    .book-section .book-text {
+      padding: 2.5rem 5%;
+      border-left: none;
+      border-top: 1px solid var(--grey-light);
+    }
+
+    .module-row {
+      padding: 2rem 5%;
+      gap: 1.5rem;
+    }
+
+    .deliverables { padding: 3rem 5%; }
+    .outcome { padding: 3rem 5%; }
+
+    .footer-nav {
+      padding: 2.5rem 5%;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .next-project { text-align: left; }
+  }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="portfolio-hero.html" class="nav-back">← Back to work</a>
+  <a href="index.html" class="nav-back">← Back to work</a>
   <span class="nav-index">Product Design · Visual Identity</span>
 </nav>
 
@@ -656,7 +739,7 @@
 </div>
 
 <!-- HERO PRODUCT IMAGE -->
-<img class="img-full reveal" src="connexus_hero.jpg" alt="Connexus hero"
+<img class="img-full reveal" src="connexus_hero.webp" alt="Connexus hero"
   style="aspect-ratio:16/9;"
   onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.15em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 
@@ -715,16 +798,16 @@
   </div>
 </div>
 
-<!-- PRODUCT IMAGES — 3 grid --
+<!-- PRODUCT IMAGES — 3 grid
 <div class="img-grid-3 reveal">
-  <img src="connexus_screen.jpg" alt="Connexus configuration 1"
+  <img src="connexus_screen.webp" alt="Connexus configuration 1"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
-  <img src="connexus-product-2.jpg" alt="Connexus configuration 2"
+  <img src="connexus-product-2.webp" alt="Connexus configuration 2"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
-  <img src="connexus-product-3.jpg" alt="Connexus configuration 3"
+  <img src="connexus-product-3.webp" alt="Connexus configuration 3"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 </div>
->
+-->
 
 <!-- SECTION 02 — PROCESS -->
 <div class="section reveal">
@@ -740,15 +823,15 @@
 
 <!-- ASYMMETRIC PRODUCT -->
 <div class="img-asymmetric reveal">
-  <img src="connexus-product-4.jpg" alt="Connexus detail"
+  <img src="connexus-product-4.webp" alt="Connexus detail"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
-  <img src="connexus-product-5.jpg" alt="Connexus detail"
+  <img src="connexus-product-5.webp" alt="Connexus detail"
     onerror="this.style.cssText='width:100%;aspect-ratio:3/4;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 </div>
 
 <!-- BOOK MOCKUP SECTION -->
 <div class="book-section reveal">
-  <img src="connexus-book.jpg" alt="Assembly guide mockup"
+  <img src="connexus-book.webp" alt="Assembly guide mockup"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
   <div class="book-text">
     <div class="book-text-label">Assembly Guide</div>
@@ -759,16 +842,16 @@
 
 <!-- GRAPHIC DESIGN — 3 grid -->
 <div class="img-grid-3 reveal">
-  <img src="connexus-graphic-1.jpg" alt="Visual identity"
+  <img src="connexus-graphic-1.webp" alt="Visual identity"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
-  <img src="connexus-graphic-2.jpg" alt="Process book"
+  <img src="connexus-graphic-2.webp" alt="Process book"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
-  <img src="connexus-graphic-3.jpg" alt="Visual system"
+  <img src="connexus-graphic-3.webp" alt="Visual system"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 </div>
 
 
-<!-- VIDEO SECTION --
+<!-- VIDEO SECTION
 <div class="video-section reveal">
   <div class="video-wrapper">
     <video controls poster="connexus-video-poster.webp">
@@ -777,7 +860,7 @@
     <div class="video-label">Modular configurations — in motion</div>
   </div>
 </div>
->
+-->
 
 <!-- DELIVERABLES -->
 <div class="deliverables reveal">
@@ -803,7 +886,7 @@
 
 <!-- FOOTER NAV -->
 <div class="footer-nav">
-  <a href="portfolio-hero.html">← All projects</a>
+  <a href="index.html">← All projects</a>
   <div class="next-project">
     <span class="next-label">Next project</span>
     <a href="apapacho.html" class="next-name">apapacho →</a>

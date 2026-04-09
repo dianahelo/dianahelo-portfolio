@@ -367,13 +367,64 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 5%; }
+
+    .hero { padding: 0 5% 8%; }
+
+    .hero-meta {
+      flex-wrap: wrap;
+      gap: 1.25rem 2rem;
+    }
+
+    .hero-title {
+      font-size: clamp(36px, 10vw, 100px);
+    }
+
+    .intro {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 3rem 5%;
+    }
+
+    .section {
+      padding: 3rem 5%;
+    }
+
+    .section-body {
+      margin-left: 0;
+    }
+
+    .section-num {
+      font-size: clamp(40px, 12vw, 60px);
+    }
+
+    .img-grid-2,
+    .img-grid-3 {
+      grid-template-columns: 1fr;
+      padding: 0 5%;
+    }
+
+    .deliverables { padding: 3rem 5%; }
+    .outcome { padding: 3rem 5%; }
+
+    .footer-nav {
+      padding: 2.5rem 5%;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .next-project { text-align: left; }
+  }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="portfolio-hero.html" class="nav-back">← Back to work</a>
+  <a href="index.html" class="nav-back">← Back to work</a>
   <span class="nav-index">Branding · UI/UX</span>
 </nav>
 
@@ -401,7 +452,7 @@
   </div>
 
   <div class="hero-title">
-    </span>BIO<span>INTELLECTUS
+    BIO<span>INTELLECTUS</span>
   </div>
 
   <div class="hero-line"></div>
@@ -416,7 +467,7 @@
 </div>
 
 <!-- FULL WIDTH IMAGE -->
-<img class="img-full img-placeholder reveal" src="biointellectus_screen.png"
+<img class="img-full img-placeholder reveal" src="biointellectus_screen.webp"
   style="aspect-ratio:16/9;" alt="Biointellectus hero"
   onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.15em;color:rgba(240,237,230,0.2);font-weight:500;font-family:Barlow,sans-serif;text-transform:uppercase;'">
 
@@ -434,10 +485,10 @@
 
 <!-- IMAGE GRID — before/after or early explorations -->
 <div class="img-grid-2 reveal">
-  <img src="bio-exploration-1.jpg" alt="Design exploration"
+  <img src="bio-exploration-1.webp" alt="Design exploration"
     class="img-placeholder"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);font-family:Barlow,sans-serif;text-transform:uppercase;'">
-  <img src="bio-exploration-2.jpg" alt="Design exploration"
+  <img src="bio-exploration-2.webp" alt="Design exploration"
     class="img-placeholder"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 </div>
@@ -456,23 +507,23 @@
 
 <!-- LOGO + SYSTEM — 3 grid -->
 <div class="img-grid-3 reveal">
-  <img src="bio-logo.jpg" alt="Logo"
+  <img src="bio-logo.webp" alt="Logo"
     class="img-placeholder"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);font-family:Barlow,sans-serif;text-transform:uppercase;'">
-  <img src="bio-colors.jpg" alt="Color system"
+  <img src="bio-colors.webp" alt="Color system"
     class="img-placeholder"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);font-family:Barlow,sans-serif;text-transform:uppercase;'">
-  <img src="bio-type.jpg" alt="Typography"
+  <img src="bio-type.webp" alt="Typography"
     class="img-placeholder"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 </div>
 
 <!-- WEBSITE FULL WIDTH -->
-<img class="img-full img-placeholder reveal" src="bio-website.jpg"
+<img class="img-full img-placeholder reveal" src="bio-website.webp"
   alt="Website redesign"
   onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.15em;color:rgba(240,237,230,0.2);font-weight:500;font-family:Barlow,sans-serif;text-transform:uppercase;'">
 
-<!-- EMAIL + VECTORS — 2 grid --
+<!-- EMAIL + VECTORS — 2 grid
 <div class="img-grid-2 reveal">
   <img src="bio-email.webp" alt="Email marketing"
     class="img-placeholder"
@@ -481,7 +532,7 @@
     class="img-placeholder"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 </div>
->
+-->
 
 <!-- DELIVERABLES -->
 <div class="deliverables reveal">
@@ -508,7 +559,7 @@
 
 <!-- FOOTER NAV -->
 <div class="footer-nav">
-  <a href="portfolio-hero.html">← All projects</a>
+  <a href="index.html">← All projects</a>
   <div class="next-project">
     <span class="next-label">Next project</span>
     <a href="looqs.html" class="next-name">looqs →</a>

@@ -133,18 +133,6 @@
     position: relative;
   }
 
-  .hero-title .italic-sub {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(20px, 3vw, 40px);
-    color: var(--cream-faded);
-    letter-spacing: 0.05em;
-    text-transform: none;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
   .hero-title .accent {
     color: var(--brown);
     -webkit-text-stroke: 2px var(--cream);
@@ -469,13 +457,77 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 5%; }
+
+    .hero { padding: 0 5% 8%; }
+
+    .hero-meta {
+      flex-wrap: wrap;
+      gap: 1.25rem 2rem;
+    }
+
+    .hero-title {
+      font-size: clamp(48px, 14vw, 140px);
+    }
+
+    .hero-title .italic-sub {
+      font-size: clamp(14px, 3vw, 24px);
+    }
+
+    .intro {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 3rem 5%;
+    }
+
+    .section {
+      padding: 3rem 5%;
+    }
+
+    .section-body {
+      margin-left: 0;
+    }
+
+    .section-num {
+      font-size: clamp(40px, 12vw, 60px);
+    }
+
+    .img-grid-2,
+    .img-grid-3 {
+      grid-template-columns: 1fr;
+      padding: 0 5%;
+    }
+
+    .film-strip {
+      grid-template-columns: 1fr;
+      padding: 0 5%;
+    }
+
+    .film-strip img:first-child {
+      aspect-ratio: 16/9;
+    }
+
+    .deliverables { padding: 3rem 5%; }
+    .outcome { padding: 3rem 5%; }
+
+    .footer-nav {
+      padding: 2.5rem 5%;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .next-project { text-align: left; }
+  }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="portfolio-hero.html" class="nav-back">← Back to work</a>
+  <a href="index.html" class="nav-back">← Back to work</a>
   <span class="nav-index">Brand Identity · AI Assets · Look & Feel</span>
 </nav>
 
@@ -503,7 +555,6 @@
   </div>
 
   <div class="hero-title">
-    <span class="italic-sub">look like yourself.</span>
     LO<span class="accent">O</span>QS
   </div>
 
@@ -519,7 +570,7 @@
 </div>
 
 <!-- HERO IMAGE — full width analog feel -->
-<img class="img-full reveal" src="looqs_screen.png" alt="Looqs hero"
+<img class="img-full reveal" src="looqs_screen.webp" alt="Looqs hero"
   onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#0d1a26;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.15em;color:rgba(255,232,210,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 
 <!-- SECTION 01 — PROBLEM -->
@@ -536,12 +587,12 @@
 
 <!-- FILM STRIP LAYOUT -->
 <div class="film-strip reveal">
-  <img src="looqs-film-1.jpg" alt="Looqs editorial"
+  <img src="looqs-film-1.webp" alt="Looqs editorial"
     onerror="this.style.cssText='width:100%;aspect-ratio:3/4;background:#0d1a26;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(255,232,210,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
   <div class="film-col">
-    <img src="looqs-film-2.jpg" alt="Looqs editorial"
+    <img src="looqs-film-2.webp" alt="Looqs editorial"
       onerror="this.style.cssText='width:100%;aspect-ratio:1/1;background:#0d1a26;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(255,232,210,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
-    <img src="looqs-film-3.jpg" alt="Looqs editorial"
+    <img src="looqs-film-3.webp" alt="Looqs editorial"
       onerror="this.style.cssText='width:100%;aspect-ratio:1/1;background:#0d1a26;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(255,232,210,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
   </div>
 </div>
@@ -560,16 +611,16 @@
 
 <!-- LOGO + BRAND -->
 <div class="img-grid-2 reveal">
-  <img src="looqs-logo-dark.jpg" alt="Logo dark mode"
+  <img src="looqs-logo-dark.webp" alt="Logo dark mode"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#0d1a26;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(255,232,210,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
-  <img src="looqs-logo-light.jpg" alt="Logo light mode"
+  <img src="looqs-logo-light.webp" alt="Logo light mode"
     onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#ffe8d2;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(140,76,43,0.4);font-family:Barlow,sans-serif;text-transform:uppercase;'">
 </div>
 
-<!-- BRAND GUIDELINES FULL WIDTH --
-<img class="img-full reveal" src="looqs-guidelines.jpg" alt="Brand guidelines"
+<!-- BRAND GUIDELINES FULL WIDTH
+<img class="img-full reveal" src="looqs-guidelines.webp" alt="Brand guidelines"
   onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#0d1a26;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.15em;color:rgba(255,232,210,0.15);font-weight:500;font-family:Barlow,sans-serif;text-transform:uppercase;'">
->
+-->
 <!-- DELIVERABLES -->
 <div class="deliverables reveal">
   <div class="deliverables-title">Deliverables</div>
@@ -593,7 +644,7 @@
 
 <!-- FOOTER NAV -->
 <div class="footer-nav">
-  <a href="portfolio-hero.html">← All projects</a>
+  <a href="index.html">← All projects</a>
   <div class="next-project">
     <span class="next-label">Next project</span>
     <a href="connexus.html" class="next-name">connexus →</a>
