@@ -453,50 +453,105 @@
     border-radius: 0;
   }
 
-  .hero {
-    top: 8%;
-    padding: 0 5%;
-  }
-
-  .headline,
-  .headline-row2 {
-    font-size: clamp(32px, 12vw, 80px);
-  }
-
-  .img-interrupt {
-    width: clamp(40px, 12vw, 70px);
-    height: clamp(30px, 10vw, 50px);
-  }
-
-  .body-copy {
-    display: none;
-  }
-
   nav {
-    padding: 5% 5%;
+    padding: 4% 5%;
   }
 
   nav a {
     font-size: clamp(9px, 2.5vw, 13px);
   }
 
+  .hero {
+    top: 8%;
+    padding: 0 5%;
+  }
+
+  /* Split headline: DIANA (pic) → HELO → PORTFOLIO, big and bold */
+  .headline {
+    flex-wrap: wrap;
+    font-size: clamp(48px, 18vw, 110px);
+  }
+
+  .headline-row2 {
+    font-size: clamp(48px, 18vw, 110px);
+  }
+
+  .helo-text {
+    width: 100%;
+  }
+
+  .img-interrupt {
+    width: clamp(65px, 20vw, 110px);
+    height: clamp(55px, 18vw, 95px);
+  }
+
+  .body-copy {
+    display: block;
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    width: 90%;
+  }
+
+  .body-copy p {
+    font-size: clamp(8px, 2.2vw, 12px);
+    line-height: 1.5;
+  }
+
+  /* Cards: 2 rows of 3, anchored to bottom */
   .scroll-strip {
-    height: 18%;
-    padding: 0 3% 4%;
-    gap: 2%;
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: auto;
+    padding: 0 3% 3%;
+    gap: 2.5%;
+    padding-bottom: calc(5.5vh + 2%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-end;
   }
 
   .project-card {
-    flex: 0 0 calc(16% - 1%);
+    flex: 0 0 calc(33.33% - 2%);
+    height: 19vh;
   }
 
+  .project-card:hover {
+    flex: 0 0 calc(33.33% - 2%);
+    transform: none;
+  }
+
+  /* Always show labels on mobile (no hover) */
+  .project-card .card-label {
+    opacity: 1;
+  }
+
+  /* Full-width CTA bar pinned to bottom */
   .card-cta {
-    flex: 0 0 calc(20% - 1%);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5.5vh;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    border-radius: 0;
+    z-index: 20;
+  }
+
+  .card-cta .cta-sub {
+    margin-top: 0;
+  }
+
+  .scroll-strip.do-spin .card-cta {
+    animation: none;
   }
 
   .copyright {
-    bottom: 5%;
-    left: 5%;
+    display: none;
   }
 
   .about-overlay {
@@ -522,7 +577,7 @@
   <nav>
     <a href="#" data-target="work">Work</a>
     <a href="#" data-target="about">About</a>
-    <a href="mailto:imdianahelo@gmail.com">Contact</a>
+    <a href="https://www.linkedin.com/in/dianahelo/" target="_blank">Contact</a>
   </nav>
 
   <!-- HERO -->
@@ -534,7 +589,7 @@
       <div class="label">(that's me!) ↑</div>
       <span class="wave-emoji" id="wave">👋</span>
     </span>
-    <span class="paren">)</span>HELO
+    <span class="paren">)</span><span class="helo-text">HELO</span>
   </div>
   <div class="headline-row2 row2-animate">PORTFOLIO</div>
 </div>
