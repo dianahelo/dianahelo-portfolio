@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — DIANA HELO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --cream: #f0ede6;
+    --accent: #e8e2d5;
+  }
+
+  html, body {
+    background: #6b6b6b;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow', sans-serif;
+  }
+
+  .viewport {
+    width: min(95vw, 1100px);
+    aspect-ratio: 16/9;
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 3.5% 4%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 10;
+  }
+
+  nav a {
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(8px, 1.1vw, 13px);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+    text-decoration: none;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 0.6s forwards;
+  }
+
+  nav a:nth-child(1) { animation-delay: 0.2s; }
+  nav a:nth-child(2) { animation-delay: 0.3s; }
+  nav a:nth-child(3) { animation-delay: 0.4s; }
+
+  /* HERO TYPE */
+  .hero {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    right: 0;
+    padding: 0 3%;
+    line-height: 0.88;
+  }
+
+  .headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(32px, 14.5vw, 200px);
+    color: var(--cream);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.04em;
+  }
+
+  .headline-row2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(32px, 14.5vw, 200px);
+    color: var(--cream);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-top: -0.04em;
+  }
+
+  /* IMAGE INTERRUPT */
+  .img-interrupt {
+    display: inline-block;
+    width: clamp(100px, 20vw, 120px);
+    height: clamp(60px, 20vw, 130px);
+    background: #2a2a2a;
+    overflow: hidden;
+    position: relative;
+    vertical-align: -150px;
+    margin: 0 0.06em;
+    flex-shrink: 0;
+    opacity: 0;
+    animation: fadeIn 0.8s 0.7s forwards;
+  }
+
+  .img-interrupt img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.2);
+  position: absolute;
+  top: 0; left: 0;
+}
+
+  .img-interrupt .label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(6px, 0.9vw, 11px);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 4% 0;
+  }
+
+  /* PARENS */
+  .paren {
+    opacity: 0.5;
+    display: inline;
+  }
+
+  /* BODY COPY */
+  .body-copy {
+  position: absolute;
+  top: 62%;
+  left: 4%;
+  width: clamp(180px, 35%, 400px);
+  text-align: left;
+}
+
+  .body-copy p {
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(7px, 0.95vw, 11px);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    line-height: 1.65;
+    color: var(--cream);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 0.8s 1s forwards;
+  }
+
+  /* COPYRIGHT */
+  .copyright {
+    position: absolute;
+    bottom: 7%;
+    left: 4%;
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(7px, 0.95vw, 11px);
+    color: var(--cream);
+    opacity: 0;
+    animation: fadeIn 0.8s 1.1s forwards;
+  }
+
+  /* SCROLL STRIP */
+  .scroll-strip {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 22%;
+    display: flex;
+    gap: 1%;
+    padding: 0 3% 3%;
+    align-items: flex-end;
+    justify-content: flex-end;
+    opacity: 0;
+    animation: slideUp 0.8s 1.2s forwards;
+  }
+
+  .project-card {
+    flex: 0 0 calc(11% - 0.5%);
+    height: 85%;
+    background: #1a1a1a;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, flex 0.4s ease;
+    position: relative;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    flex: 0 0 calc(15% - 0.5%);
+  }
+
+  .project-card .card-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: var(--cream);
+    font-size: clamp(6px, 0.7vw, 9px);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16% 8% 6%;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .project-card:hover .card-label { opacity: 1; }
+
+  .card-cta {
+    flex: 0 0 calc(14% - 0.5%);
+    height: 85%;
+    background: #ff4e00;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .card-cta:hover { transform: translateY(-4px); }
+
+  .card-cta .cta-title {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: clamp(7px, 0.95vw, 11px);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--black);
+    line-height: 1.3;
+  }
+
+  .card-cta .cta-sub {
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(6px, 0.7vw, 8px);
+    color: rgba(0,0,0,0.6);
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  /* CARD COLORS */
+  .c1 { background: #1c1c1c; }
+  .c2 { background: #222; }
+  .c3 { background: #181818; }
+  .c4 { background: #1e1e1e; }
+  .c5 { background: #202020; }
+  .c6 { background: #191919; }
+  .c7 { background: #1d1d1d; }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .row1-animate {
+    opacity: 0;
+    animation: fadeIn 0.7s 0.4s forwards;
+  }
+
+  .row2-animate {
+    opacity: 0;
+    animation: fadeIn 0.7s 0.55s forwards;
+  }
+
+  /* CURSOR */
+  .viewport { cursor: crosshair; }
+
+@media (max-width: 700px) {
+  .body-copy {
+    display: none;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="viewport">
+
+  <!-- NAV -->
+  <nav>
+    <a href="#">Work</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </nav>
+
+  <!-- HERO -->
+<div class="hero">
+  <div class="headline row1-animate">
+    DIANA<span class="paren">(</span>
+    <span class="img-interrupt">
+      <img src="dianamountain.jpg" alt="">
+      <div class="label">(that's her) ↑</div>
+    </span>
+    <span class="paren">)</span>HELO
+  </div>
+  <div class="headline-row2 row2-animate">PORTFOLIO</div>
+</div>
+
+  <!-- BODY COPY -->
+  <div class="body-copy">
+    <p>
+      Designer and creative developer.<br>
+      Building things that look as good<br>
+      as they work — from concept to product.
+    </p>
+  </div>
+
+  <!-- COPYRIGHT -->
+  <div class="copyright">©'25</div>
+
+  <!-- PROJECT STRIP -->
+  <div class="scroll-strip">
+    <div class="project-card c1" style="background-image: url('2SUNRISE_PORTFOLIO.png'); background-size: cover; background-position: center;"onclick="window.location='2sunrise.html'">
+     <div class="card-label">2sunrise</div></div>
+    <div class="project-card c2" style="background-image: url('biointellectus_screen.png'); background-size: cover; background-position: center;"onclick="window.location='biointellectus.html'">
+     <div class="card-label">biointellectus</div></div>
+    <div class="project-card c3" style="background-image: url('looqs_screen.png'); background-size: cover; background-position: center;"onclick="window.location='looqs.html'">
+     <div class="card-label">looqs</div></div>    
+    <div class="project-card c4" style="background-image: url('connexus_screen.jpg'); background-size: cover; background-position: top;"onclick="window.location='connexus.html'">
+     <div class="card-label">connexus</div></div> 
+    <div class="project-card c5" style="background-image: url('apapachomilan_screen.JPG'); background-size: cover; background-position: top;">
+     <div class="card-label">apapacho</div></div> 
+
+    <div class="card-cta">
+      <div class="cta-title">Let's<br>work →</div>
+      <div class="cta-sub">Available now</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

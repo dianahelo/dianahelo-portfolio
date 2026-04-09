@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apapacho — Diana Helo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --cream: #f0ede6;
+    --orange: #f15a22;
+    --blue: #3a5fc8;
+    --pink: #f2a7c3;
+    --grey-light: rgba(240,237,230,0.1);
+    --grey-dim: rgba(240,237,230,0.4);
+  }
+
+  html, body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Barlow', sans-serif;
+    cursor: crosshair;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 2rem 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    mix-blend-mode: difference;
+  }
+
+  .nav-back {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+
+  .nav-back:hover { opacity: 0.6; }
+
+  .nav-index {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 4% 5%;
+    position: relative;
+    overflow: hidden;
+    background: #0c0a0f;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 70%, rgba(242,167,195,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 30%, rgba(58,95,200,0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 80%, rgba(241,90,34,0.08) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  /* soft wavy lines */
+  .hero-wave {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero-wave svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.04;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey-dim);
+  }
+
+  .meta-value {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(72px, 16vw, 220px);
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-title .pink { color: var(--pink); }
+  .hero-title .blue { color: var(--blue); }
+  .hero-title .outline {
+    -webkit-text-stroke: 2px var(--cream);
+    color: transparent;
+  }
+
+  /* AWARDS STRIP */
+  .awards-strip {
+    display: flex;
+    gap: 0;
+    margin-top: 3rem;
+    border-top: 1px solid var(--grey-light);
+    border-bottom: 1px solid var(--grey-light);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+    overflow-x: auto;
+  }
+
+  .award-item {
+    flex: 1;
+    padding: 1.25rem 1.5rem;
+    border-right: 1px solid var(--grey-light);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 200px;
+  }
+
+  .award-item:last-child { border-right: none; }
+
+  .award-icon {
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  .award-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    line-height: 1.4;
+  }
+
+  .award-event {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey-dim);
+  }
+
+  .award-item.featured .award-title { color: var(--pink); }
+  .award-item.milan .award-title { color: var(--blue); }
+
+  /* INTRO */
+  .intro {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    padding: 6rem 4%;
+    border-bottom: 1px solid var(--grey-light);
+  }
+
+  .intro-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey-dim);
+    padding-top: 6px;
+  }
+
+  .intro-text {
+    font-size: clamp(18px, 2.2vw, 28px);
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 5rem 4%;
+    border-bottom: 1px solid var(--grey-light);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(60px, 8vw, 100px);
+    color: rgba(240,237,230,0.05);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 52px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+  }
+
+  .section-body {
+    max-width: 680px;
+    font-size: clamp(14px, 1.3vw, 17px);
+    font-weight: 400;
+    line-height: 1.85;
+    color: rgba(240,237,230,0.65);
+    margin-left: calc(clamp(60px, 8vw, 100px) + 2rem);
+  }
+
+  .section-body p + p { margin-top: 1.2rem; }
+
+  /* IMAGE LAYOUTS */
+  .img-full {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+    background: #141414;
+  }
+
+  .img-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    padding: 0 4%;
+    margin: 0.75rem 0;
+  }
+
+  .img-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.75rem;
+    padding: 0 4%;
+    margin: 0.75rem 0;
+  }
+
+  .img-grid-2 img,
+  .img-grid-3 img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    background: #141414;
+  }
+
+  /* tall editorial layout */
+  .img-editorial {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.75rem;
+    padding: 0 4%;
+    margin: 0.75rem 0;
+    align-items: end;
+  }
+
+  .img-editorial img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    background: #141414;
+  }
+
+  .img-editorial img:nth-child(1) { aspect-ratio: 3/4; }
+  .img-editorial img:nth-child(2) { aspect-ratio: 2/3; margin-bottom: 0; }
+  .img-editorial img:nth-child(3) { aspect-ratio: 3/4; }
+
+  /* pattern close-up split */
+  .pattern-split {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 0;
+    margin: 0.75rem 0;
+  }
+
+  .pattern-split img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    background: #141414;
+  }
+
+  .pattern-split img:first-child { aspect-ratio: 16/9; }
+
+  .pattern-split-text {
+    background: #0f0c14;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid var(--grey-light);
+  }
+
+  .pattern-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 1rem;
+  }
+
+  .pattern-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(22px, 2.5vw, 36px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    line-height: 1.05;
+    margin-bottom: 1.25rem;
+  }
+
+  .pattern-body {
+    font-size: clamp(12px, 1.1vw, 14px);
+    line-height: 1.8;
+    color: rgba(240,237,230,0.5);
+  }
+
+  /* BOOK SECTION */
+  .book-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin: 0.75rem 0;
+  }
+
+  .book-section img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    background: #141414;
+  }
+
+  .book-text {
+    background: #100d18;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--grey-light);
+  }
+
+  .book-text-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 1.5rem;
+  }
+
+  .book-text-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(26px, 2.8vw, 40px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+
+  .book-text-body {
+    font-size: clamp(12px, 1.1vw, 14px);
+    line-height: 1.8;
+    color: rgba(240,237,230,0.5);
+  }
+
+  /* COLOR PALETTE ROW */
+  .palette-row {
+    display: flex;
+    height: 80px;
+    margin: 0.75rem 0;
+    overflow: hidden;
+  }
+
+  .palette-swatch {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 1rem 0.75rem;
+  }
+
+  .palette-swatch span {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    opacity: 0.7;
+  }
+
+  /* DELIVERABLES */
+  .deliverables {
+    padding: 5rem 4%;
+    border-bottom: 1px solid var(--grey-light);
+  }
+
+  .deliverables-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey-dim);
+    margin-bottom: 2rem;
+  }
+
+  .deliverables-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    border: 1px solid rgba(240,237,230,0.2);
+    padding: 8px 16px;
+    border-radius: 2px;
+  }
+
+  .tag.soft { border-color: var(--pink); color: var(--pink); }
+  .tag.bold { border-color: var(--blue); color: var(--blue); }
+
+  /* OUTCOME */
+  .outcome {
+    padding: 7rem 4%;
+    border-bottom: 1px solid var(--grey-light);
+    position: relative;
+    overflow: hidden;
+    background: #0c0a0f;
+  }
+
+  .outcome-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 10% 50%, rgba(242,167,195,0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 50%, rgba(58,95,200,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .outcome-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 1.0;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    max-width: 1000px;
+    color: var(--cream);
+    position: relative;
+    z-index: 1;
+  }
+
+  .outcome-text .pink { color: var(--pink); }
+  .outcome-text .blue { color: var(--blue); }
+  .outcome-text .outline {
+    -webkit-text-stroke: 2px var(--cream);
+    color: transparent;
+  }
+
+  /* FOOTER NAV */
+  .footer-nav {
+    padding: 4rem 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-nav a {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+  }
+
+  .footer-nav a:hover { color: var(--pink); }
+
+  .next-project { text-align: right; }
+
+  .next-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey-dim);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .next-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(24px, 4vw, 48px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    text-decoration: none;
+    display: block;
+    transition: color 0.2s;
+  }
+
+  .next-name:hover { color: var(--pink); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="portfolio-hero.html" class="nav-back">← Back to work</a>
+  <span class="nav-index">Textile Design · Visual Identity</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-100 400 Q200 200 500 400 Q800 600 1100 400 Q1400 200 1600 400" stroke="#f2a7c3" stroke-width="1.5" fill="none"/>
+      <path d="M-100 500 Q200 300 500 500 Q800 700 1100 500 Q1400 300 1600 500" stroke="#3a5fc8" stroke-width="1" fill="none"/>
+      <path d="M-100 600 Q300 400 600 600 Q900 800 1200 600 Q1400 400 1600 600" stroke="#f15a22" stroke-width="0.8" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="hero-meta reveal">
+    <div class="meta-item">
+      <span class="meta-label">Project</span>
+      <span class="meta-value">Apapacho</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Role</span>
+      <span class="meta-value">Designer</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Type</span>
+      <span class="meta-value">Textile · Pattern · Identity</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Shown at</span>
+      <span class="meta-value">Milan Design Week '25</span>
+    </div>
+  </div>
+
+  <div class="hero-title">
+    <span class="pink">APA</span><span class="outline">PA</span>CHO
+  </div>
+
+  <!-- AWARDS STRIP -->
+  <div class="awards-strip">
+    <div class="award-item featured">
+      <div class="award-icon">⭐</div>
+      <div class="award-title">Honorable Mention</div>
+      <div class="award-event">Conclusiones 24'</div>
+    </div>
+    <div class="award-item featured">
+      <div class="award-icon">⭐</div>
+      <div class="award-title">Entrepreneurship Award</div>
+      <div class="award-event">Conclusiones 24'</div>
+    </div>
+    <div class="award-item featured">
+      <div class="award-icon">⭐</div>
+      <div class="award-title">People's Choice Award</div>
+      <div class="award-event">Conclusiones 24'</div>
+    </div>
+    <div class="award-item milan">
+      <div class="award-icon">🇮🇹</div>
+      <div class="award-title">Project Presented</div>
+      <div class="award-event">Milan Design Week 25'</div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro reveal">
+  <div class="intro-label">Overview</div>
+  <div class="intro-text">
+    In the fast pace of the city, we all need a moment of pause. A breather. A snuggle. Apapacho is a collection of transformable textiles designed to wrap you in warmth, comfort, and love — bringing you back to that feeling of home, no matter where you are.
+  </div>
+</div>
+
+<!-- HERO IMAGE -->
+<img class="img-full reveal" src="apapacho_screen.png" alt="Apapacho hero"
+  style="aspect-ratio:16/9;"
+  onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.15em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+
+<!-- SECTION 01 — PROBLEM -->
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-title">The Problem</div>
+  </div>
+  <div class="section-body">
+    <p>This project was born from a universal experience: arriving home after an exhausting day in search of an emotional refuge. A gesture that envelops and comforts us. A hug — understood as an embrace for the soul, according to the words of those interviewed during the research phase.</p>
+    <p>The question was: what is it that physically embraces us? The most obvious, tangible, and warm answer is textiles. From that premise, three products were developed that literally hug you back.</p>
+  </div>
+</div>
+
+<!-- EDITORIAL 3 IMAGES --
+<div class="img-editorial reveal">
+  <img src="apapacho-product-1.webp" alt="Apapacho product"
+    onerror="this.style.cssText='width:100%;aspect-ratio:3/4;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="apapacho-product-2.webp" alt="Apapacho product"
+    onerror="this.style.cssText='width:100%;aspect-ratio:2/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="apapacho-product-3.webp" alt="Apapacho product"
+    onerror="this.style.cssText='width:100%;aspect-ratio:3/4;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+</div>
+>
+
+<!-- SECTION 02 — PROCESS -->
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-title">The Process</div>
+  </div>
+  <div class="section-body">
+    <p>The patterns were designed around the abstraction of an embrace — a curved "U" shape seeking to connect with another, evoking union and closeness. The color selection was carefully considered to convey tenderness and warmth, while bringing a touch of dynamism and fun.</p>
+    <p>The base module — a curved tubular shape — gave rise to all three patterns. Its scale and proportion were key: the module in the blanket is exactly half the height of one row in the scarf pattern, creating a visual language that flows across every object in the collection.</p>
+  </div>
+</div>
+
+<!-- PATTERN STORY SPLIT -->
+<div class="pattern-split reveal">
+  <img src="apapacho-pattern.jpg" alt="Pattern detail"
+    onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <div class="pattern-split-text">
+    <div class="pattern-label">Pattern Narrative</div>
+    <div class="pattern-title">Two elements.<br>They meet.<br>They embrace.</div>
+    <div class="pattern-body">In the blanket — the main piece — a story is told. Two elements begin separately, each at one end. As they progress, they meet, intertwine, and finally embrace at the center, where the modules weave into a complex interaction that symbolizes the act of snuggling.</div>
+  </div>
+</div>
+
+<!-- PALETTE ROW -->
+<div class="palette-row reveal">
+  <div class="palette-swatch" style="background:#ff5d35;">
+    <span style="color:#0a0a0a;">Orange</span>
+  </div>
+  <div class="palette-swatch" style="background:#002487;">
+    <span style="color:#f0ede6;">Royal Blue</span>
+  </div>
+  <div class="palette-swatch" style="background:#fdb3c2;">
+    <span style="color:#0a0a0a;">Baby Pink</span>
+  </div>
+  <div class="palette-swatch" style="background:#f0ede6;">
+    <span style="color:#0a0a0a;">Cream</span>
+  </div>
+  <div class="palette-swatch" style="background:#0a0a0a; border: 1px solid rgba(240,237,230,0.1);">
+    <span style="color:#f0ede6;">Black</span>
+  </div>
+</div>
+
+<!-- PRODUCT GRID -->
+<div class="img-grid-2 reveal">
+  <img src="apapachomilan_screen.JPG" alt="Apapacho textile"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="apapacho-product-5.jpg" alt="Apapacho textile"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+</div>
+
+<!-- BOOK SECTION -->
+<div class="book-section reveal">
+  <div class="book-text">
+    <div class="book-text-label">Process Book & Folding Guide</div>
+    <div class="book-text-title">The full story,<br>documented.</div>
+    <div class="book-text-body">From the research that uncovered the emotional need, to the pattern development that told the story — the process book captures every step. The folding guide documents how each textile transforms, giving users the language to explore every configuration of the collection.</div>
+  </div>
+  <img src="apapacho-graphic-1.jpg" alt="Process book mockup"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+</div>
+
+<!-- GRAPHIC DESIGN GRID -->
+<div class="img-grid-3 reveal">
+  <img src="apapacho-book.jpg" alt="Visual identity"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="apapacho-graphic-2.jpg" alt="Visual identity"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="apapacho-libros.jpg" alt="Milan Design Week"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+</div>
+
+<!-- DELIVERABLES -->
+<div class="deliverables reveal">
+  <div class="deliverables-title">Deliverables</div>
+  <div class="deliverables-list">
+    <span class="tag soft">Textile Collection</span>
+    <span class="tag soft">Pattern Design</span>
+    <span class="tag soft">Folding Guide</span>
+    <span class="tag bold">Process Book</span>
+    <span class="tag bold">Visual Identity</span>
+    <span class="tag">Color System</span>
+    <span class="tag">Brand Graphic</span>
+    <span class="tag">Milan Design Week Presentation</span>
+  </div>
+</div>
+
+<!-- OUTCOME -->
+<div class="outcome reveal">
+  <div class="outcome-bg"></div>
+  <div class="outcome-text">
+    <span class="pink">Three products.</span><br>
+    <span class="blue">One design week.</span><br>
+    <span class="outline">One hug.</span>
+  </div>
+</div>
+
+<!-- FOOTER NAV -->
+<div class="footer-nav">
+  <a href="portfolio-hero.html">← All projects</a>
+  <div class="next-project">
+    <span class="next-label">Next project</span>
+    <a href="2sunrise.html" class="next-name">2sunrise →</a>
+  </div>
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

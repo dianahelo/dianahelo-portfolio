@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biointellectus — Diana Helo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --cream: #f0ede6;
+    --orange: #ff4e00;
+    --bio-green: #2d4a2d;
+    --bio-accent: #7ab648;
+  }
+
+  html, body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Barlow', sans-serif;
+    cursor: crosshair;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 2rem 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    mix-blend-mode: difference;
+  }
+
+  .nav-back {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .nav-back:hover { opacity: 0.6; }
+
+  .nav-index {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 4% 5%;
+    position: relative;
+    overflow: hidden;
+    background: #0a0a0a;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(45,74,45,0.25) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(240,237,230,0.4);
+  }
+
+  .meta-value {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(48px, 11vw, 160px);
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-title span {
+    color: var(--bio-accent);
+  }
+
+  .hero-line {
+    width: 100%;
+    height: 1px;
+    background: rgba(240,237,230,0.15);
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.8s forwards;
+  }
+
+  /* INTRO */
+  .intro {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    padding: 6rem 4%;
+    border-bottom: 1px solid rgba(240,237,230,0.1);
+  }
+
+  .intro-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(240,237,230,0.4);
+    padding-top: 6px;
+  }
+
+  .intro-text {
+    font-size: clamp(18px, 2.2vw, 28px);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 5rem 4%;
+    border-bottom: 1px solid rgba(240,237,230,0.1);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(60px, 8vw, 100px);
+    color: rgba(240,237,230,0.08);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 52px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+  }
+
+  .section-body {
+    max-width: 680px;
+    font-size: clamp(14px, 1.3vw, 17px);
+    font-weight: 400;
+    line-height: 1.8;
+    color: rgba(240,237,230,0.75);
+    margin-left: calc(clamp(60px, 8vw, 100px) + 2rem);
+  }
+
+  .section-body p + p {
+    margin-top: 1.2rem;
+  }
+
+  /* IMAGE LAYOUTS */
+  .img-full {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+    background: #1a1a1a;
+  }
+
+  .img-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 0 4%;
+    margin: 1rem 0;
+  }
+
+  .img-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    padding: 0 4%;
+    margin: 1rem 0;
+  }
+
+  .img-grid-2 img,
+  .img-grid-3 img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    background: #1a1a1a;
+  }
+
+  .img-placeholder {
+    background: #141414;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(240,237,230,0.2);
+    font-weight: 500;
+  }
+
+  /* DELIVERABLES */
+  .deliverables {
+    padding: 5rem 4%;
+    border-bottom: 1px solid rgba(240,237,230,0.1);
+  }
+
+  .deliverables-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(240,237,230,0.4);
+    margin-bottom: 2rem;
+  }
+
+  .deliverables-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    border: 1px solid rgba(240,237,230,0.2);
+    padding: 8px 16px;
+    border-radius: 2px;
+  }
+
+  .tag.green {
+    border-color: var(--bio-accent);
+    color: var(--bio-accent);
+  }
+
+  /* OUTCOME */
+  .outcome {
+    padding: 5rem 4%;
+    background: #0c110c;
+    border-bottom: 1px solid rgba(240,237,230,0.1);
+  }
+
+  .outcome-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 5.5vw, 72px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    max-width: 900px;
+    color: var(--cream);
+  }
+
+  .outcome-text span {
+    color: var(--bio-accent);
+  }
+
+  /* FOOTER NAV */
+  .footer-nav {
+    padding: 4rem 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-nav a {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+  }
+
+  .footer-nav a:hover { color: var(--bio-accent); }
+
+  .next-project { text-align: right; }
+
+  .next-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(240,237,230,0.4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .next-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(24px, 4vw, 48px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    text-decoration: none;
+    display: block;
+    transition: color 0.2s;
+  }
+
+  .next-name:hover { color: var(--bio-accent); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="portfolio-hero.html" class="nav-back">← Back to work</a>
+  <span class="nav-index">Branding · UI/UX</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-meta reveal">
+    <div class="meta-item">
+      <span class="meta-label">Client</span>
+      <span class="meta-value">Biointellectus</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Role</span>
+      <span class="meta-value">UI/UX · Brand Designer</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Industry</span>
+      <span class="meta-value">Biotech · Sustainability</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Type</span>
+      <span class="meta-value">Redesign · Design System</span>
+    </div>
+  </div>
+
+  <div class="hero-title">
+    </span>BIO<span>INTELLECTUS
+  </div>
+
+  <div class="hero-line"></div>
+</div>
+
+<!-- INTRO -->
+<div class="intro reveal">
+  <div class="intro-label">Overview</div>
+  <div class="intro-text">
+    A Mexican biotech startup pioneering 100% compostable biomaterials from agricultural waste. They needed a design system and digital presence that could carry the weight of that mission — without losing sight of the beauty industry they serve.
+  </div>
+</div>
+
+<!-- FULL WIDTH IMAGE -->
+<img class="img-full img-placeholder reveal" src="biointellectus_screen.png"
+  style="aspect-ratio:16/9;" alt="Biointellectus hero"
+  onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.15em;color:rgba(240,237,230,0.2);font-weight:500;font-family:Barlow,sans-serif;text-transform:uppercase;'">
+
+<!-- SECTION 01 — PROBLEM -->
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-title">The Problem</div>
+  </div>
+  <div class="section-body">
+    <p>Biointellectus had a groundbreaking product — biomaterials made from agricultural waste that fully biodegrade in home compost — but their digital presence didn't reflect it. Their website and visual identity felt generic, failing to communicate the innovation and seriousness of what they were building.</p>
+    <p>The challenge was creating a design system from the ground up that could speak to two audiences at once: the beauty and cosmetics industry, and the sustainability-driven investors and partners they needed to grow.</p>
+  </div>
+</div>
+
+<!-- IMAGE GRID — before/after or early explorations -->
+<div class="img-grid-2 reveal">
+  <img src="bio-exploration-1.jpg" alt="Design exploration"
+    class="img-placeholder"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="bio-exploration-2.jpg" alt="Design exploration"
+    class="img-placeholder"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+</div>
+
+<!-- SECTION 02 — PROCESS -->
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-title">The Process</div>
+  </div>
+  <div class="section-body">
+    <p>Started with a full audit of their existing presence and mapped out a sitemap and user flows to restructure how people moved through their story. From there, built a complete design system — logo, submark, color palette, typography, and component library — grounded in the tension between natural materials and cutting-edge science.</p>
+    <p>With the system locked, moved into the website redesign — from wireframes through to high-fidelity UI. Designed email marketing pages and vector assets that extended the identity across every touchpoint consistently.</p>
+  </div>
+</div>
+
+<!-- LOGO + SYSTEM — 3 grid -->
+<div class="img-grid-3 reveal">
+  <img src="bio-logo.jpg" alt="Logo"
+    class="img-placeholder"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="bio-colors.jpg" alt="Color system"
+    class="img-placeholder"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="bio-type.jpg" alt="Typography"
+    class="img-placeholder"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+</div>
+
+<!-- WEBSITE FULL WIDTH -->
+<img class="img-full img-placeholder reveal" src="bio-website.jpg"
+  alt="Website redesign"
+  onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.15em;color:rgba(240,237,230,0.2);font-weight:500;font-family:Barlow,sans-serif;text-transform:uppercase;'">
+
+<!-- EMAIL + VECTORS — 2 grid --
+<div class="img-grid-2 reveal">
+  <img src="bio-email.webp" alt="Email marketing"
+    class="img-placeholder"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="bio-vectors.webp" alt="Vector assets"
+    class="img-placeholder"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+</div>
+>
+
+<!-- DELIVERABLES -->
+<div class="deliverables reveal">
+  <div class="deliverables-title">Deliverables</div>
+  <div class="deliverables-list">
+    <span class="tag green">Website Redesign</span>
+    <span class="tag green">Design System</span>
+    <span class="tag green">Logo & Vectors</span>
+    <span class="tag">Sitemap</span>
+    <span class="tag">User Flows</span>
+    <span class="tag">Email Marketing Pages</span>
+    <span class="tag">Color System</span>
+    <span class="tag">Typography</span>
+    <span class="tag">Component Library</span>
+  </div>
+</div>
+
+<!-- OUTCOME -->
+<div class="outcome reveal">
+  <div class="outcome-text">
+    A complete design system built to carry a mission — <span>making sustainable packaging</span> look as good as what it replaces.
+  </div>
+</div>
+
+<!-- FOOTER NAV -->
+<div class="footer-nav">
+  <a href="portfolio-hero.html">← All projects</a>
+  <div class="next-project">
+    <span class="next-label">Next project</span>
+    <a href="looqs.html" class="next-name">looqs →</a>
+  </div>
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

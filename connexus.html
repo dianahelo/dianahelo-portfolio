@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connexus — Diana Helo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --cream: #f0ede6;
+    --grey: #6b6b6b;
+    --grey-light: rgba(240,237,230,0.12);
+    --grey-dim: rgba(240,237,230,0.4);
+    --orange: #f15a22;
+  }
+
+  html, body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Barlow', sans-serif;
+    cursor: crosshair;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 2rem 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    mix-blend-mode: difference;
+  }
+
+  .nav-back {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+
+  .nav-back:hover { opacity: 0.6; }
+
+  .nav-index {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 4% 5%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* subtle grid bg */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(240,237,230,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240,237,230,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 40%, rgba(241,90,34,0.1) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey-dim);
+  }
+
+  .meta-value {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(72px, 15vw, 210px);
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-title .outline {
+    -webkit-text-stroke: 2px var(--cream);
+    color: transparent;
+  }
+
+  .hero-title .accent { color: var(--orange); }
+
+  /* module counter */
+  .hero-counter {
+    position: absolute;
+    right: 4%;
+    bottom: 5%;
+    text-align: right;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+
+  .counter-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(48px, 7vw, 96px);
+    color: rgba(240,237,230,0.06);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .counter-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey-dim);
+  }
+
+  .hero-line {
+    width: 100%;
+    height: 1px;
+    background: var(--grey-light);
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.8s forwards;
+  }
+
+  /* INTRO */
+  .intro {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    padding: 6rem 4%;
+    border-bottom: 1px solid var(--grey-light);
+  }
+
+  .intro-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey-dim);
+    padding-top: 6px;
+  }
+
+  .intro-text {
+    font-size: clamp(16px, 2vw, 26px);
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 5rem 4%;
+    border-bottom: 1px solid var(--grey-light);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(60px, 8vw, 100px);
+    color: rgba(240,237,230,0.06);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 52px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+  }
+
+  .section-body {
+    max-width: 680px;
+    font-size: clamp(14px, 1.3vw, 17px);
+    font-weight: 400;
+    line-height: 1.8;
+    color: rgba(240,237,230,0.65);
+    margin-left: calc(clamp(60px, 8vw, 100px) + 2rem);
+  }
+
+  .section-body p + p { margin-top: 1.2rem; }
+
+  /* IMAGE LAYOUTS */
+  .img-full {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+    background: #141414;
+  }
+
+  .img-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    padding: 0 4%;
+    margin: 0.75rem 0;
+  }
+
+  .img-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.75rem;
+    padding: 0 4%;
+    margin: 0.75rem 0;
+  }
+
+  .img-grid-2 img,
+  .img-grid-3 img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    background: #141414;
+  }
+
+  /* asymmetric product layout */
+  .img-asymmetric {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 0.75rem;
+    padding: 0 4%;
+    margin: 0.75rem 0;
+  }
+
+  .img-asymmetric img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    background: #141414;
+  }
+
+  .img-asymmetric img:first-child { aspect-ratio: 4/3; }
+  .img-asymmetric img:last-child { aspect-ratio: 3/4; }
+
+  /* book mockup section */
+  .book-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin: 0.75rem 0;
+  }
+
+  .book-section img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    background: #141414;
+  }
+
+  .book-section .book-text {
+    background: #111;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid var(--grey-light);
+  }
+
+  .book-text-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1.5rem;
+  }
+
+  .book-text-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 3vw, 42px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .book-text-body {
+    font-size: clamp(13px, 1.1vw, 15px);
+    line-height: 1.75;
+    color: rgba(240,237,230,0.55);
+  }
+
+  /* VIDEO SECTION */
+  .video-section {
+    padding: 0 4%;
+    margin: 0.75rem 0;
+  }
+
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #0f0f0f;
+    overflow: hidden;
+  }
+
+  .video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .video-label {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(240,237,230,0.4);
+  }
+
+  .video-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #0f0f0f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    border: 1px solid var(--grey-light);
+  }
+
+  .play-btn {
+    width: 64px;
+    height: 64px;
+    border: 1.5px solid rgba(240,237,230,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .play-btn::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 16px solid rgba(240,237,230,0.4);
+    margin-left: 4px;
+  }
+
+  .video-file-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(240,237,230,0.25);
+  }
+
+  /* MODULE DIAGRAM */
+  .module-row {
+    padding: 4rem 4%;
+    border-bottom: 1px solid var(--grey-light);
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    overflow-x: auto;
+  }
+
+  .module-block {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .cube {
+    border: 1.5px solid rgba(240,237,230,0.2);
+    background: transparent;
+    position: relative;
+  }
+
+  .cube-sm { width: 40px; height: 40px; }
+  .cube-md { width: 40px; height: 80px; }
+  .cube-lg { width: 80px; height: 80px; }
+  .cube.accent { border-color: var(--orange); }
+
+  .module-label {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey-dim);
+    text-align: center;
+  }
+
+  .module-plus {
+    flex: 0 0 auto;
+    font-size: 20px;
+    color: rgba(240,237,230,0.15);
+    font-weight: 300;
+  }
+
+  .module-arrow {
+    flex: 0 0 auto;
+    font-size: 20px;
+    color: var(--orange);
+  }
+
+  /* DELIVERABLES */
+  .deliverables {
+    padding: 5rem 4%;
+    border-bottom: 1px solid var(--grey-light);
+  }
+
+  .deliverables-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey-dim);
+    margin-bottom: 2rem;
+  }
+
+  .deliverables-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    border: 1px solid rgba(240,237,230,0.2);
+    padding: 8px 16px;
+    border-radius: 2px;
+  }
+
+  .tag.arch {
+    border-color: var(--orange);
+    color: var(--orange);
+  }
+
+  /* OUTCOME */
+  .outcome {
+    padding: 6rem 4%;
+    background: #0d0d0d;
+    border-bottom: 1px solid var(--grey-light);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .outcome::before {
+    content: '⧇';
+    position: absolute;
+    right: 4%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: clamp(120px, 18vw, 220px);
+    color: rgba(241,90,34,0.04);
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .outcome-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 5.5vw, 72px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    max-width: 900px;
+    color: var(--cream);
+    position: relative;
+    z-index: 1;
+  }
+
+  .outcome-text span { color: var(--orange); }
+
+  .outcome-text .outline {
+    -webkit-text-stroke: 1.5px var(--cream);
+    color: transparent;
+  }
+
+  /* FOOTER NAV */
+  .footer-nav {
+    padding: 4rem 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-nav a {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+  }
+
+  .footer-nav a:hover { color: var(--orange); }
+
+  .next-project { text-align: right; }
+
+  .next-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey-dim);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .next-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(24px, 4vw, 48px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    text-decoration: none;
+    display: block;
+    transition: color 0.2s;
+  }
+
+  .next-name:hover { color: var(--orange); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="portfolio-hero.html" class="nav-back">← Back to work</a>
+  <span class="nav-index">Product Design · Visual Identity</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-meta reveal">
+    <div class="meta-item">
+      <span class="meta-label">Project</span>
+      <span class="meta-value">Connexus</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Role</span>
+      <span class="meta-value">Designer</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Type</span>
+      <span class="meta-value">Furniture · Identity · Publication</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Context</span>
+      <span class="meta-value">Academic · Capstone</span>
+    </div>
+  </div>
+
+  <div class="hero-title">
+    <span class="outline">CON</span><span class="accent">N</span>EXUS
+  </div>
+
+  <div class="hero-counter">
+    <div class="counter-num">∞</div>
+    <div class="counter-label">Configurations</div>
+  </div>
+
+  <div class="hero-line"></div>
+</div>
+
+<!-- INTRO -->
+<div class="intro reveal">
+  <div class="intro-label">Overview</div>
+  <div class="intro-text">
+    Urban densification is redefining how we live. Connexus is a modular furniture system born for hybrid spaces — where you work, rest, and socialize in the same room. It doesn't just organize. It transforms.
+  </div>
+</div>
+
+<!-- HERO PRODUCT IMAGE -->
+<img class="img-full reveal" src="connexus_hero.jpg" alt="Connexus hero"
+  style="aspect-ratio:16/9;"
+  onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.15em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+
+<!-- SECTION 01 — PROBLEM -->
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-title">The Problem</div>
+  </div>
+  <div class="section-body">
+    <p>As cities densify and living spaces shrink, the furniture we own can no longer afford to be static. A desk is a desk. A shelf is a shelf. But what happens when your apartment is also your office, your studio, and your living room — all at once?</p>
+    <p>Connexus was designed to answer that question. The brief called for a system that could adapt intuitively through simple reconfigurations — inviting movement and exploration rather than locking users into a single layout.</p>
+  </div>
+</div>
+
+<!-- MODULE DIAGRAM -->
+<div class="module-row reveal">
+  <div class="module-block">
+    <div class="cube cube-sm"></div>
+    <div class="module-label">Unit</div>
+  </div>
+  <div class="module-plus">+</div>
+  <div class="module-block">
+    <div class="cube cube-sm"></div>
+    <div class="module-label">Unit</div>
+  </div>
+  <div class="module-plus">+</div>
+  <div class="module-block">
+    <div class="cube cube-sm accent"></div>
+    <div class="module-label">Unit</div>
+  </div>
+  <div class="module-arrow">→</div>
+  <div class="module-block">
+    <div style="display:flex; gap:4px; align-items:flex-end;">
+      <div class="cube cube-md"></div>
+      <div class="cube cube-sm" style="margin-bottom:0;"></div>
+    </div>
+    <div class="module-label">Stack</div>
+  </div>
+  <div class="module-plus">+</div>
+  <div class="module-block">
+    <div class="cube cube-lg"></div>
+    <div class="module-label">Extend</div>
+  </div>
+  <div class="module-arrow">→</div>
+  <div class="module-block">
+    <div style="display:flex; gap:4px; align-items:flex-end;">
+      <div class="cube cube-md"></div>
+      <div style="display:flex; flex-direction:column; gap:4px;">
+        <div class="cube cube-sm accent"></div>
+        <div class="cube cube-sm"></div>
+      </div>
+      <div class="cube cube-lg"></div>
+    </div>
+    <div class="module-label">Your configuration</div>
+  </div>
+</div>
+
+<!-- PRODUCT IMAGES — 3 grid --
+<div class="img-grid-3 reveal">
+  <img src="connexus_screen.jpg" alt="Connexus configuration 1"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="connexus-product-2.jpg" alt="Connexus configuration 2"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="connexus-product-3.jpg" alt="Connexus configuration 3"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+</div>
+>
+
+<!-- SECTION 02 — PROCESS -->
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-title">The Process</div>
+  </div>
+  <div class="section-body">
+    <p>Developed the full visual identity for Connexus — a clean, architectural system that mirrors the logic of the furniture itself. Every asset was built on the same modular thinking: simple units that combine into something greater.</p>
+    <p>Designed a comprehensive process book documenting the journey from brief to final form, an assembly guide mapping every possible modular configuration, and the overall visual language that ties the system together across all touchpoints.</p>
+  </div>
+</div>
+
+<!-- ASYMMETRIC PRODUCT -->
+<div class="img-asymmetric reveal">
+  <img src="connexus-product-4.jpg" alt="Connexus detail"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="connexus-product-5.jpg" alt="Connexus detail"
+    onerror="this.style.cssText='width:100%;aspect-ratio:3/4;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+</div>
+
+<!-- BOOK MOCKUP SECTION -->
+<div class="book-section reveal">
+  <img src="connexus-book.jpg" alt="Assembly guide mockup"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <div class="book-text">
+    <div class="book-text-label">Assembly Guide</div>
+    <div class="book-text-title">Every configuration,<br>documented.</div>
+    <div class="book-text-body">A modular system is only as powerful as its instructions. The Connexus assembly guide maps every possible configuration — from the simplest stack to the most complex spatial arrangement — so users can explore freely and build with confidence.</div>
+  </div>
+</div>
+
+<!-- GRAPHIC DESIGN — 3 grid -->
+<div class="img-grid-3 reveal">
+  <img src="connexus-graphic-1.jpg" alt="Visual identity"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="connexus-graphic-2.jpg" alt="Process book"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="connexus-graphic-3.jpg" alt="Visual system"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#141414;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(240,237,230,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+</div>
+
+
+<!-- VIDEO SECTION --
+<div class="video-section reveal">
+  <div class="video-wrapper">
+    <video controls poster="connexus-video-poster.webp">
+      <source src="connexus-reel.mp4" type="video/mp4">
+    </video>
+    <div class="video-label">Modular configurations — in motion</div>
+  </div>
+</div>
+>
+
+<!-- DELIVERABLES -->
+<div class="deliverables reveal">
+  <div class="deliverables-title">Deliverables</div>
+  <div class="deliverables-list">
+    <span class="tag arch">Assembly Guide</span>
+    <span class="tag arch">Process Book</span>
+    <span class="tag arch">Visual Identity</span>
+    <span class="tag">Logo System</span>
+    <span class="tag">Color System</span>
+    <span class="tag">Typography</span>
+    <span class="tag">Product Photography Art Direction</span>
+    <span class="tag">Motion Reel</span>
+  </div>
+</div>
+
+<!-- OUTCOME -->
+<div class="outcome reveal">
+  <div class="outcome-text">
+    A modular system — <span>in furniture and in design.</span> Built to <span class="outline">adapt.</span>
+  </div>
+</div>
+
+<!-- FOOTER NAV -->
+<div class="footer-nav">
+  <a href="portfolio-hero.html">← All projects</a>
+  <div class="next-project">
+    <span class="next-label">Next project</span>
+    <a href="apapacho.html" class="next-name">apapacho →</a>
+  </div>
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Looqs — Diana Helo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #041326;
+    --cream: #ffe8d2;
+    --brown: #8c4c2b;
+    --cream-faded: rgba(255,232,210,0.5);
+    --cream-dim: rgba(255,232,210,0.25);
+  }
+
+  html, body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Barlow', sans-serif;
+    cursor: crosshair;
+  }
+
+  /* grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.35;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 2rem 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+  }
+
+  .nav-back {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    text-decoration: none;
+    text-transform: uppercase;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+
+  .nav-back:hover { opacity: 1; }
+
+  .nav-index {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--cream-faded);
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 4% 5%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 60%, rgba(140,76,43,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 20%, rgba(255,232,210,0.06) 0%, transparent 45%);
+    pointer-events: none;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  .meta-value {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(80px, 18vw, 240px);
+    line-height: 0.82;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+    position: relative;
+  }
+
+  .hero-title .italic-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(20px, 3vw, 40px);
+    color: var(--cream-faded);
+    letter-spacing: 0.05em;
+    text-transform: none;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-title .accent {
+    color: var(--brown);
+    -webkit-text-stroke: 2px var(--cream);
+    text-stroke: 2px var(--cream);
+    color: transparent;
+
+    display: inline-block;
+    transform: translateX(-0.15em);
+
+    margin-right: -0.14em; /* THIS cancels the leftover space */
+  }
+
+  .hero-line {
+    width: 100%;
+    height: 1px;
+    background: rgba(255,232,210,0.12);
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.8s forwards;
+  }
+
+  /* INTRO */
+  .intro {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    padding: 6rem 4%;
+    border-bottom: 1px solid rgba(255,232,210,0.08);
+  }
+
+  .intro-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    padding-top: 6px;
+  }
+
+  .intro-text {
+    font-size: clamp(18px, 2.2vw, 28px);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+  }
+
+  .intro-text em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15em;
+    color: var(--cream);
+  }
+
+  /* SECTION */
+  .section {
+    padding: 5rem 4%;
+    border-bottom: 1px solid rgba(255,232,210,0.08);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(60px, 8vw, 100px);
+    color: rgba(255,232,210,0.05);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 52px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+  }
+
+  .section-body {
+    max-width: 680px;
+    font-size: clamp(14px, 1.3vw, 17px);
+    font-weight: 400;
+    line-height: 1.8;
+    color: rgba(255,232,210,0.65);
+    margin-left: calc(clamp(60px, 8vw, 100px) + 2rem);
+  }
+
+  .section-body p + p { margin-top: 1.2rem; }
+
+  /* IMAGE LAYOUTS */
+  .img-full {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+    background: #0d1a26;
+  }
+
+  .img-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    padding: 0 4%;
+    margin: 0.6rem 0;
+  }
+
+  .img-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.6rem;
+    padding: 0 4%;
+    margin: 0.6rem 0;
+  }
+
+  .img-grid-2 img,
+  .img-grid-3 img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    background: #0d1a26;
+  }
+
+  /* film strip layout */
+  .film-strip {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 0.6rem;
+    padding: 0 4%;
+    margin: 0.6rem 0;
+  }
+
+  .film-strip img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    background: #0d1a26;
+  }
+
+  .film-strip img:first-child {
+    aspect-ratio: 3/4;
+  }
+
+  .film-strip .film-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .film-strip .film-col img {
+    aspect-ratio: 1/1;
+    flex: 1;
+  }
+
+  .img-placeholder {
+    background: #0d1a26;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,232,210,0.15);
+    font-weight: 500;
+  }
+
+  /* DELIVERABLES */
+  .deliverables {
+    padding: 5rem 4%;
+    border-bottom: 1px solid rgba(255,232,210,0.08);
+  }
+
+  .deliverables-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    margin-bottom: 2rem;
+  }
+
+  .deliverables-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    border: 1px solid rgba(255,232,210,0.2);
+    padding: 8px 16px;
+    border-radius: 2px;
+  }
+
+  .tag.warm {
+    border-color: var(--brown);
+    color: var(--cream);
+    background: rgba(140,76,43,0.15);
+  }
+
+  /* OUTCOME */
+  .outcome {
+    padding: 6rem 4%;
+    border-bottom: 1px solid rgba(255,232,210,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .outcome::before {
+    content: 'LOOQS';
+    position: absolute;
+    right: -2%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(120px, 20vw, 280px);
+    color: rgba(255,232,210,0.03);
+    letter-spacing: -0.02em;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .outcome-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 5.5vw, 72px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    max-width: 860px;
+    color: var(--cream);
+    position: relative;
+    z-index: 1;
+  }
+
+  .outcome-text em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    color: var(--cream);
+    font-size: 1.05em;
+  }
+
+  .outcome-text span {
+    -webkit-text-stroke: 1.5px var(--cream);
+    color: transparent;
+  }
+
+  /* FOOTER NAV */
+  .footer-nav {
+    padding: 4rem 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-nav a {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+
+  .footer-nav a:hover { opacity: 1; }
+
+  .next-project { text-align: right; }
+
+  .next-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .next-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(24px, 4vw, 48px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    text-decoration: none;
+    display: block;
+    opacity: 1;
+    transition: color 0.2s;
+  }
+
+  .next-name:hover { color: var(--brown); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="portfolio-hero.html" class="nav-back">← Back to work</a>
+  <span class="nav-index">Brand Identity · AI Assets · Look & Feel</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-meta reveal">
+    <div class="meta-item">
+      <span class="meta-label">Client</span>
+      <span class="meta-value">Looqs</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Role</span>
+      <span class="meta-value">Brand Designer</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Industry</span>
+      <span class="meta-value">Fashion · AI · Tech</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Type</span>
+      <span class="meta-value">Identity · Art Direction</span>
+    </div>
+  </div>
+
+  <div class="hero-title">
+    <span class="italic-sub">look like yourself.</span>
+    LO<span class="accent">O</span>QS
+  </div>
+
+  <div class="hero-line"></div>
+</div>
+
+<!-- INTRO -->
+<div class="intro reveal">
+  <div class="intro-label">Overview</div>
+  <div class="intro-text">
+    Looqs is an AI-powered app that analyzes your <em>colorimetry</em> and curates outfits built around you. The brand needed to feel as personal as the product — edgy, editorial, and warm. Analog at heart, algorithm by design.
+  </div>
+</div>
+
+<!-- HERO IMAGE — full width analog feel -->
+<img class="img-full reveal" src="looqs_screen.png" alt="Looqs hero"
+  onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#0d1a26;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.15em;color:rgba(255,232,210,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+
+<!-- SECTION 01 — PROBLEM -->
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-title">The Problem</div>
+  </div>
+  <div class="section-body">
+    <p>Looqs was building something genuinely new — an app that uses AI to read your personal color season and build outfits around it. But the brand had no visual identity to match the ambition of the product.</p>
+    <p>The challenge was creating a look and feel that could live inside a tech product while never feeling cold or generic. It needed to feel like fashion. Like a friend who actually knows what looks good on you.</p>
+  </div>
+</div>
+
+<!-- FILM STRIP LAYOUT -->
+<div class="film-strip reveal">
+  <img src="looqs-film-1.jpg" alt="Looqs editorial"
+    onerror="this.style.cssText='width:100%;aspect-ratio:3/4;background:#0d1a26;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(255,232,210,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <div class="film-col">
+    <img src="looqs-film-2.jpg" alt="Looqs editorial"
+      onerror="this.style.cssText='width:100%;aspect-ratio:1/1;background:#0d1a26;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(255,232,210,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+    <img src="looqs-film-3.jpg" alt="Looqs editorial"
+      onerror="this.style.cssText='width:100%;aspect-ratio:1/1;background:#0d1a26;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(255,232,210,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  </div>
+</div>
+
+<!-- SECTION 02 — PROCESS -->
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-title">The Process</div>
+  </div>
+  <div class="section-body">
+    <p>Built the identity around the tension between analog warmth and digital precision. The logo is modern and elegant — clean enough to live in an app UI, distinct enough to own a mood board. The color system is pulled directly from Kodak Portra 400 tones: warm faded highlights, soft shadows, that cinematic film grain that makes skin glow.</p>
+    <p>Generated the AI assets with an editorial street photography direction — Canon AE-1 aesthetic, urban energy, real people in real light. Then packaged everything into brand guidelines that any developer or designer on the team could pick up and run with.</p>
+  </div>
+</div>
+
+<!-- LOGO + BRAND -->
+<div class="img-grid-2 reveal">
+  <img src="looqs-logo-dark.jpg" alt="Logo dark mode"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#0d1a26;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(255,232,210,0.15);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+  <img src="looqs-logo-light.jpg" alt="Logo light mode"
+    onerror="this.style.cssText='width:100%;aspect-ratio:4/3;background:#ffe8d2;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:rgba(140,76,43,0.4);font-family:Barlow,sans-serif;text-transform:uppercase;'">
+</div>
+
+<!-- BRAND GUIDELINES FULL WIDTH --
+<img class="img-full reveal" src="looqs-guidelines.jpg" alt="Brand guidelines"
+  onerror="this.style.cssText='width:100%;aspect-ratio:16/9;background:#0d1a26;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.15em;color:rgba(255,232,210,0.15);font-weight:500;font-family:Barlow,sans-serif;text-transform:uppercase;'">
+>
+<!-- DELIVERABLES -->
+<div class="deliverables reveal">
+  <div class="deliverables-title">Deliverables</div>
+  <div class="deliverables-list">
+    <span class="tag warm">Logo System</span>
+    <span class="tag warm">Brand Guidelines</span>
+    <span class="tag warm">AI Asset Direction</span>
+    <span class="tag">Color System</span>
+    <span class="tag">Typography</span>
+    <span class="tag">Look & Feel</span>
+    <span class="tag">App Visual Language</span>
+  </div>
+</div>
+
+<!-- OUTCOME -->
+<div class="outcome reveal">
+  <div class="outcome-text">
+    A brand that feels like <em>fashion</em> — warm, editorial, and smart enough to be <span>built around you.</span>
+  </div>
+</div>
+
+<!-- FOOTER NAV -->
+<div class="footer-nav">
+  <a href="portfolio-hero.html">← All projects</a>
+  <div class="next-project">
+    <span class="next-label">Next project</span>
+    <a href="connexus.html" class="next-name">connexus →</a>
+  </div>
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
